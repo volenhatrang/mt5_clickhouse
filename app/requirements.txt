@@ -4,3 +4,6 @@ clickhouse-driver
 esmerald 
 requests
 retry==0.9.2
+yfinance
+pandas
+tabulate

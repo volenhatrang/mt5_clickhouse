@@ -14,7 +14,7 @@ WORKDIR /app
 
 COPY . /app
 
-CMD ["python", "connect-mt5.py"]
+CMD ["python", "download_yah_prices.py"]
 
 # CMD ["tail", "-f", "/dev/null"]
 
