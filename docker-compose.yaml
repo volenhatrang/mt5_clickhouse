@@ -1,31 +1,36 @@
 version: '3.8'
+
 services:
-  mt5-connector:
+  data-processor:
     build:
-      context: ./app
+      context: .
       dockerfile: Dockerfile
     env_file:
       - ./app/.env
+    volumes:
+      - ./app:/app 
     depends_on:
       - clickhouse
     networks:
-      - mt5-network
+      - data-network
+    command: python main.py
 
   clickhouse:
     image: yandex/clickhouse-server:latest
     container_name: clickhouse
     ports:
-      - "8123:8123" 
-      - "9000:9000" 
+      - "8123:8123"  
+      - "9000:9000"  
     volumes:
       - clickhouse-data:/var/lib/clickhouse
     networks:
-      - mt5-network
-
+      - data-network
+    restart: unless-stopped
 
 networks:
-  mt5-network:
+  data-network: 
     driver: bridge
 
 volumes:
   clickhouse-data:
+    driver: local
